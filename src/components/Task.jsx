@@ -1,17 +1,50 @@
-function Task({ title, completed }) {
+import { useState } from "react";
+
+function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(title);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onEdit(id, value);
+      setIsEditing(false);
+    }
+  };
+
   return (
     <li className={completed ? "completed" : ""}>
       <div className="view">
-        <input className="toggle" type="checkbox" checked={completed} readOnly />
+        <input
+          className="toggle"
+          type="checkbox"
+          checked={completed}
+          onChange={() => onToggle(id)}
+        />
         <label>
           <span className="description">{title}</span>
-          <span className="created">created</span>
+          <button
+            className="icon icon-edit"
+            onClick={() => setIsEditing(true)}
+          />
+          <button
+            className="icon icon-destroy"
+            onClick={() => onDelete(id)}
+          />
         </label>
-        <button className="icon icon-edit"></button>
-        <button className="icon icon-destroy"></button>
       </div>
+
+      {isEditing && (
+        <input
+          className="edit"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          autoFocus
+        />
+      )}
     </li>
   );
 }
 
 export default Task;
+

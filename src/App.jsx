@@ -1,9 +1,10 @@
+import { useState } from "react";
 import TaskList from "./components/TaskList";
 import NewTaskForm from "./components/NewTaskForm";
 import Footer from "./components/Footer";
 
 function App() {
-  const tasks = [
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       title: "Completed task",
@@ -16,17 +17,54 @@ function App() {
       completed: false,
       createdAt: new Date(),
     },
-  ];
+  ]);
+
+  const addTask = (title) => {
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        title,
+        completed: false,
+        createdAt: new Date(),
+      },
+    ]);
+  };
+
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const editTask = (id, newTitle) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, title: newTitle } : task
+      )
+    );
+  };
 
   return (
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <NewTaskForm />
+        <NewTaskForm onAddTask={addTask} />
       </header>
 
       <section className="main">
-        <TaskList tasks={tasks} />
+        <TaskList
+          tasks={tasks}
+          onToggle={toggleTask}
+          onDelete={deleteTask}
+          onEdit={editTask}
+        />
       </section>
 
       <Footer />
@@ -35,3 +73,4 @@ function App() {
 }
 
 export default App;
+
