@@ -26,17 +26,17 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
 
         <label>
           <span className="description">{title}</span>
-
-          <button
-            className="icon icon-edit"
-            onClick={() => setIsEditing(true)}
-          />
-
-          <button
-            className="icon icon-destroy"
-            onClick={() => onDelete(id)}
-          />
         </label>
+
+        <button
+          className="icon icon-edit"
+          onClick={() => setIsEditing(true)}
+        />
+
+        <button
+          className="icon icon-destroy"
+          onClick={() => onDelete(id)}
+        />
       </div>
 
       <input
@@ -44,7 +44,7 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        autoFocus
+        autoFocus={isEditing}
       />
     </li>
   );
