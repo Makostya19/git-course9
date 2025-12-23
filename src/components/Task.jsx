@@ -6,7 +6,10 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      onEdit(id, value.trim());
+      const trimmed = value.trim();
+      if (trimmed) {
+        onEdit(id, trimmed);
+      }
       setIsEditing(false);
     }
   };
@@ -41,10 +44,11 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        onBlur={() => setIsEditing(false)}
+        autoFocus
       />
     </li>
   );
 }
 
 export default Task;
+
