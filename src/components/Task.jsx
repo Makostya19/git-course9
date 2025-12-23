@@ -37,7 +37,6 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
       </div>
 
       <input
-        type="text"
         className="edit"
         value={value}
         onChange={(e) => setValue(e.target.value)}
