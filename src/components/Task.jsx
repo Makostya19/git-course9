@@ -36,19 +36,15 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         />
       </div>
 
-      {isEditing && (
-        <input
-          type="text"
-          className="edit"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
-      )}
+      <input
+        type="text"
+        className="edit"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
     </li>
   );
 }
 
 export default Task;
-
