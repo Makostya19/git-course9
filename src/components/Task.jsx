@@ -12,7 +12,7 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
   };
 
   return (
-    <li className={completed ? "completed" : ""}>
+    <li className={`${completed ? "completed" : ""} ${isEditing ? "editing" : ""}`}>
       <div className="view">
         <input
           className="toggle"
@@ -20,21 +20,25 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
           checked={completed}
           onChange={() => onToggle(id)}
         />
+
         <label>
           <span className="description">{title}</span>
-          <button
-            className="icon icon-edit"
-            onClick={() => setIsEditing(true)}
-          />
-          <button
-            className="icon icon-destroy"
-            onClick={() => onDelete(id)}
-          />
         </label>
+
+        <button
+          className="icon icon-edit"
+          onClick={() => setIsEditing(true)}
+        />
+
+        <button
+          className="icon icon-destroy"
+          onClick={() => onDelete(id)}
+        />
       </div>
 
       {isEditing && (
         <input
+          type="text"
           className="edit"
           value={value}
           onChange={(e) => setValue(e.target.value)}
