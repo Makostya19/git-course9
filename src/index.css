@@ -402,10 +402,10 @@ html .clear-completed:active {
   display: block;
 }
 
-.todo-list li.editing .view {
+.todo-list li .edit {
   display: none;
 }
 
-.todo-list li .edit {
-  display: none;
+.todo-list li.completed .description {
+  text-decoration: line-through;
 }

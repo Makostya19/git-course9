@@ -6,7 +6,6 @@ function NewTaskForm({ onAddTask }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value.trim()) return;
-
     onAddTask(value);
     setValue("");
   };

@@ -4,15 +4,8 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(title);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      onEdit(id, value);
-      setIsEditing(false);
-    }
-  };
-
   return (
-    <li className={`${completed ? "completed" : ""} ${isEditing ? "editing" : ""}`}>
+    <li className={isEditing ? "editing" : completed ? "completed" : ""}>
       <div className="view">
         <input
           className="toggle"
@@ -36,12 +29,20 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         />
       </div>
 
-      <input
-        className="edit"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-      />
+      {isEditing && (
+        <input
+          className="edit"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onEdit(id, value);
+              setIsEditing(false);
+            }
+          }}
+          autoFocus
+        />
+      )}
     </li>
   );
 }
