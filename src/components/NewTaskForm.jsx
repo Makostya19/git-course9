@@ -3,7 +3,7 @@ import { useState } from "react";
 function NewTaskForm({ onAddTask }) {
   const [value, setValue] = useState("");
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!value.trim()) return;
     onAddTask(value);
@@ -11,12 +11,13 @@ function NewTaskForm({ onAddTask }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <input
         className="new-todo"
         placeholder="What needs to be done?"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        autoFocus
       />
     </form>
   );

@@ -1,34 +1,34 @@
 import { useState } from "react";
 
-function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
-  const [isEditing, setIsEditing] = useState(false);
+function Task({ task, onToggle, onDelete, onEdit }) {
+  const { id, title, completed } = task;
+  const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(title);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      onEdit(id, value);
-      setIsEditing(false);
+      onEdit(id, value.trim());
+      setEditing(false);
     }
   };
 
   return (
-    <li className={`${completed ? "completed" : ""} ${isEditing ? "editing" : ""}`}>
+    <li className={`${completed ? "completed" : ""} ${editing ? "editing" : ""}`}>
       <div className="view">
         <input
-          id={`toggle-${id}`}
           className="toggle"
           type="checkbox"
           checked={completed}
           onChange={() => onToggle(id)}
         />
 
-        <label htmlFor={`toggle-${id}`}>
+        <label onDoubleClick={() => setEditing(true)}>
           <span className="description">{title}</span>
         </label>
 
         <button
           className="icon icon-edit"
-          onClick={() => setIsEditing(true)}
+          onClick={() => setEditing(true)}
         />
 
         <button
@@ -37,15 +37,14 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         />
       </div>
 
-      {isEditing && (
-        <input
-          className="edit"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
-      )}
+      <input
+        className="edit"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onBlur={() => setEditing(false)}
+        autoFocus
+      />
     </li>
   );
 }

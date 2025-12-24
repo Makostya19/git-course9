@@ -13,7 +13,7 @@ function App() {
     },
     {
       id: 2,
-      title: "Editing task",
+      title: "Active task",
       completed: false,
       createdAt: new Date(),
     },
@@ -34,9 +34,7 @@ function App() {
   const toggleTask = (id) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
+        task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
   };
@@ -45,10 +43,10 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const editTask = (id, newTitle) => {
+  const editTask = (id, title) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, title: newTitle } : task
+        task.id === id ? { ...task, title } : task
       )
     );
   };
