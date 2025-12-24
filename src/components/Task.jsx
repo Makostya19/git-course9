@@ -12,7 +12,7 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
   };
 
   return (
-    <li className={completed ? "completed" : ""}>
+    <li className={`${completed ? "completed" : ""} ${isEditing ? "editing" : ""}`}>
       <div className="view">
         <input
           className="toggle"
@@ -36,15 +36,13 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
         </label>
       </div>
 
-      {isEditing && (
-        <input
-          className="edit"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
-      )}
+      <input
+        className="edit"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+        autoFocus={isEditing}
+      />
     </li>
   );
 }
