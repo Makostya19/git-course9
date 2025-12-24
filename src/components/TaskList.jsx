@@ -6,7 +6,9 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }) {
       {tasks.map((task) => (
         <Task
           key={task.id}
-          {...task}
+          id={task.id}
+          title={task.title}
+          completed={task.completed}
           onToggle={onToggle}
           onDelete={onDelete}
           onEdit={onEdit}

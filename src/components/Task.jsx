@@ -6,16 +6,13 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      const trimmed = value.trim();
-      if (trimmed) {
-        onEdit(id, trimmed);
-      }
+      onEdit(id, value.trim());
       setIsEditing(false);
     }
   };
 
   return (
-    <li className={`${completed ? "completed" : ""} ${isEditing ? "editing" : ""}`}>
+    <li className={completed ? "completed" : ""}>
       <div className="view">
         <input
           className="toggle"
@@ -26,29 +23,30 @@ function Task({ id, title, completed, onToggle, onDelete, onEdit }) {
 
         <label>
           <span className="description">{title}</span>
+
+          <button
+            className="icon icon-edit"
+            onClick={() => setIsEditing(true)}
+          />
+
+          <button
+            className="icon icon-destroy"
+            onClick={() => onDelete(id)}
+          />
         </label>
-
-        <button
-          className="icon icon-edit"
-          onClick={() => setIsEditing(true)}
-        />
-
-        <button
-          className="icon icon-destroy"
-          onClick={() => onDelete(id)}
-        />
       </div>
 
-      <input
-        className="edit"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        autoFocus={isEditing}
-      />
+      {isEditing && (
+        <input
+          className="edit"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          autoFocus
+        />
+      )}
     </li>
   );
 }
 
 export default Task;
-

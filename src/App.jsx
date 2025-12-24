@@ -20,8 +20,8 @@ function App() {
   ]);
 
   const addTask = (title) => {
-    setTasks([
-      ...tasks,
+    setTasks((prev) => [
+      ...prev,
       {
         id: Date.now(),
         title,
@@ -32,24 +32,28 @@ function App() {
   };
 
   const toggleTask = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id === id) {
+          return { ...task, completed: !task.completed };
+        }
+        return task;
+      })
     );
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   const editTask = (id, newTitle) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, title: newTitle } : task
-      )
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id === id) {
+          return { ...task, title: newTitle };
+        }
+        return task;
+      })
     );
   };
 
@@ -75,4 +79,3 @@ function App() {
 }
 
 export default App;
-
