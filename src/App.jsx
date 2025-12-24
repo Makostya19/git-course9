@@ -20,8 +20,8 @@ function App() {
   ]);
 
   const addTask = (title) => {
-    setTasks((prev) => [
-      ...prev,
+    setTasks([
+      ...tasks,
       {
         id: Date.now(),
         title,
@@ -32,28 +32,24 @@ function App() {
   };
 
   const toggleTask = (id) => {
-    setTasks((prev) =>
-      prev.map((task) => {
-        if (task.id === id) {
-          return { ...task, completed: !task.completed };
-        }
-        return task;
-      })
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
     );
   };
 
   const deleteTask = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const editTask = (id, newTitle) => {
-    setTasks((prev) =>
-      prev.map((task) => {
-        if (task.id === id) {
-          return { ...task, title: newTitle };
-        }
-        return task;
-      })
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, title: newTitle } : task
+      )
     );
   };
 
