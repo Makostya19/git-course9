@@ -13,7 +13,7 @@ function App() {
     },
     {
       id: 2,
-      title: "Editing task",
+      title: "Active task",
       completed: false,
       createdAt: new Date(),
     },
@@ -79,14 +79,14 @@ function App() {
           onDelete={deleteTask}
           onEdit={editTask}
         />
-
-        <Footer
-          itemsLeft={itemsLeft}
-          filter={filter}
-          setFilter={setFilter}
-          onClearCompleted={clearCompleted}
-        />
       </section>
+
+      <Footer
+        itemsLeft={itemsLeft}
+        filter={filter}
+        setFilter={setFilter}
+        onClearCompleted={clearCompleted}
+      />
     </section>
   );
 }
