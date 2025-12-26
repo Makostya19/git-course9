@@ -279,12 +279,12 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+  min-height: 20px;
   text-align: center;
   font-size: 15px;
   border-top: 1px solid #e6e6e6;
   color: gray;
 }
-
 
 .footer:before {
   content: '';
