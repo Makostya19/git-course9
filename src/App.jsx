@@ -13,7 +13,7 @@ function App() {
     },
     {
       id: 2,
-      title: "Active task",
+      title: "Editing task",
       completed: false,
       createdAt: new Date(),
     },
@@ -63,7 +63,7 @@ function App() {
     return true;
   });
 
-  const itemsLeft = tasks.filter((t) => !t.completed).length;
+  const itemsLeft = tasks.filter((task) => !task.completed).length;
 
   return (
     <section className="todoapp">
@@ -79,14 +79,14 @@ function App() {
           onDelete={deleteTask}
           onEdit={editTask}
         />
-      </section>
 
-      <Footer
-        itemsLeft={itemsLeft}
-        filter={filter}
-        setFilter={setFilter}
-        onClearCompleted={clearCompleted}
-      />
+        <Footer
+          itemsLeft={itemsLeft}
+          filter={filter}
+          setFilter={setFilter}
+          onClearCompleted={clearCompleted}
+        />
+      </section>
     </section>
   );
 }
