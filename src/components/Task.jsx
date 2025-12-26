@@ -14,16 +14,26 @@ function Task({ task, onToggle, onDelete, onEdit }) {
     <li className={`${task.completed ? "completed" : ""} ${editing ? "editing" : ""}`}>
       <div className="view">
         <input
+          id={`toggle-${task.id}`}
           className="toggle"
           type="checkbox"
           checked={task.completed}
           onChange={() => onToggle(task.id)}
         />
-        <label>
+
+        <label htmlFor={`toggle-${task.id}`}>
           <span className="description">{task.title}</span>
         </label>
-        <button className="icon icon-edit" onClick={() => setEditing(true)} />
-        <button className="icon icon-destroy" onClick={() => onDelete(task.id)} />
+
+        <button
+          className="icon icon-edit"
+          onClick={() => setEditing(true)}
+        />
+
+        <button
+          className="icon icon-destroy"
+          onClick={() => onDelete(task.id)}
+        />
       </div>
 
       {editing && (
