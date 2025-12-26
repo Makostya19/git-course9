@@ -1,50 +1,42 @@
 import { useState } from "react";
 
 function Task({ task, onToggle, onDelete, onEdit }) {
-  const { id, title, completed } = task;
   const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState(title);
+  const [value, setValue] = useState(task.title);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      onEdit(id, value.trim());
-      setEditing(false);
-    }
+  const submit = (e) => {
+    e.preventDefault();
+    onEdit(task.id, value);
+    setEditing(false);
   };
 
   return (
-    <li className={`${completed ? "completed" : ""} ${editing ? "editing" : ""}`}>
+    <li className={`${task.completed ? "completed" : ""} ${editing ? "editing" : ""}`}>
       <div className="view">
         <input
           className="toggle"
           type="checkbox"
-          checked={completed}
-          onChange={() => onToggle(id)}
+          checked={task.completed}
+          onChange={() => onToggle(task.id)}
         />
-
-        <label onDoubleClick={() => setEditing(true)}>
-          <span className="description">{title}</span>
+        <label>
+          <span className="description">{task.title}</span>
         </label>
-
-        <button
-          className="icon icon-edit"
-          onClick={() => setEditing(true)}
-        />
-
-        <button
-          className="icon icon-destroy"
-          onClick={() => onDelete(id)}
-        />
+        <button className="icon icon-edit" onClick={() => setEditing(true)} />
+        <button className="icon icon-destroy" onClick={() => onDelete(task.id)} />
       </div>
 
-      <input
-        className="edit"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onBlur={() => setEditing(false)}
-        autoFocus
-      />
+      {editing && (
+        <form onSubmit={submit}>
+          <input
+            className="edit"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onBlur={submit}
+            autoFocus
+          />
+        </form>
+      )}
     </li>
   );
 }
