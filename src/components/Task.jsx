@@ -4,7 +4,7 @@ function Task({ task, onToggle, onDelete, onEdit }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(task.title);
 
-  const submit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     onEdit(task.id, value);
     setEditing(false);
@@ -27,12 +27,11 @@ function Task({ task, onToggle, onDelete, onEdit }) {
       </div>
 
       {editing && (
-        <form onSubmit={submit}>
+        <form onSubmit={onSubmit}>
           <input
             className="edit"
             value={value}
-            onChange={e => setValue(e.target.value)}
-            onBlur={submit}
+            onChange={(e) => setValue(e.target.value)}
             autoFocus
           />
         </form>

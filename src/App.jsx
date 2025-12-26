@@ -5,48 +5,65 @@ import Footer from "./components/Footer";
 
 function App() {
   const [tasks, setTasks] = useState([
-    { id: 1, title: "Completed task", completed: true, createdAt: new Date() },
-    { id: 2, title: "Active task", completed: false, createdAt: new Date() },
+    {
+      id: 1,
+      title: "Completed task",
+      completed: true,
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      title: "Active task",
+      completed: false,
+      createdAt: new Date(),
+    },
   ]);
 
   const [filter, setFilter] = useState("all");
 
   const addTask = (title) => {
-    setTasks([...tasks, {
-      id: Date.now(),
-      title,
-      completed: false,
-      createdAt: new Date(),
-    }]);
+    setTasks([
+      ...tasks,
+      {
+        id: Date.now(),
+        title,
+        completed: false,
+        createdAt: new Date(),
+      },
+    ]);
   };
 
   const toggleTask = (id) => {
-    setTasks(tasks.map(t =>
-      t.id === id ? { ...t, completed: !t.completed } : t
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter(t => t.id !== id));
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const editTask = (id, title) => {
-    setTasks(tasks.map(t =>
-      t.id === id ? { ...t, title } : t
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, title } : task
+      )
+    );
   };
 
   const clearCompleted = () => {
-    setTasks(tasks.filter(t => !t.completed));
+    setTasks(tasks.filter((task) => !task.completed));
   };
 
-  const filteredTasks = tasks.filter(t => {
-    if (filter === "active") return !t.completed;
-    if (filter === "completed") return t.completed;
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
     return true;
   });
 
-  const activeCount = tasks.filter(t => !t.completed).length;
+  const itemsLeft = tasks.filter((t) => !t.completed).length;
 
   return (
     <section className="todoapp">
@@ -64,14 +81,12 @@ function App() {
         />
       </section>
 
-      {tasks.length > 0 && (
-        <Footer
-          activeCount={activeCount}
-          filter={filter}
-          onFilterChange={setFilter}
-          onClearCompleted={clearCompleted}
-        />
-      )}
+      <Footer
+        itemsLeft={itemsLeft}
+        filter={filter}
+        setFilter={setFilter}
+        onClearCompleted={clearCompleted}
+      />
     </section>
   );
 }

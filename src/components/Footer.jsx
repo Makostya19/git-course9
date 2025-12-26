@@ -1,28 +1,34 @@
-function Footer({ activeCount, filter, onFilterChange, onClearCompleted }) {
+function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{activeCount}</strong> items left
+        <strong>{itemsLeft}</strong> items left
       </span>
 
       <ul className="filters">
         <li>
           <button
             className={filter === "all" ? "selected" : ""}
-            onClick={() => onFilterChange("all")}
-          >All</button>
+            onClick={() => setFilter("all")}
+          >
+            All
+          </button>
         </li>
         <li>
           <button
             className={filter === "active" ? "selected" : ""}
-            onClick={() => onFilterChange("active")}
-          >Active</button>
+            onClick={() => setFilter("active")}
+          >
+            Active
+          </button>
         </li>
         <li>
           <button
             className={filter === "completed" ? "selected" : ""}
-            onClick={() => onFilterChange("completed")}
-          >Completed</button>
+            onClick={() => setFilter("completed")}
+          >
+            Completed
+          </button>
         </li>
       </ul>
 
