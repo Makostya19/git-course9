@@ -1,22 +1,18 @@
 import { useState } from "react";
 
 function Task({ task, onToggle, onDelete, onEdit }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(task.title);
 
-  const handleSubmit = (e) => {
+  const submit = (e) => {
     e.preventDefault();
     onEdit(task.id, value);
-    setIsEditing(false);
+    setEditing(false);
   };
 
-  let className = "";
-  if (task.completed) className += " completed";
-  if (isEditing) className += " editing";
-
   return (
-    <li className={className}>
-      {!isEditing && (
+    <li className={task.completed ? "completed" : ""}>
+      {!editing && (
         <>
           <input
             className="toggle"
@@ -25,13 +21,13 @@ function Task({ task, onToggle, onDelete, onEdit }) {
             onChange={() => onToggle(task.id)}
           />
 
-          <label>
+          <label onDoubleClick={() => setEditing(true)}>
             {task.title}
           </label>
 
           <button
             className="icon icon-edit"
-            onClick={() => setIsEditing(true)}
+            onClick={() => setEditing(true)}
           />
 
           <button
@@ -41,13 +37,13 @@ function Task({ task, onToggle, onDelete, onEdit }) {
         </>
       )}
 
-      {isEditing && (
-        <form onSubmit={handleSubmit}>
+      {editing && (
+        <form onSubmit={submit}>
           <input
             className="edit"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            onBlur={handleSubmit}
+            onBlur={submit}
             autoFocus
           />
         </form>

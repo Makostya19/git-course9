@@ -6,7 +6,7 @@ function NewTaskForm({ onAddTask }) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!value.trim()) return;
-    onAddTask(value);
+    onAddTask(value.trim());
     setValue("");
   };
 
@@ -17,6 +17,7 @@ function NewTaskForm({ onAddTask }) {
         placeholder="What needs to be done?"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        autoFocus
       />
     </form>
   );
