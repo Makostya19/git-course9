@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskList from "./components/TaskList";
 import NewTaskForm from "./components/NewTaskForm";
 import Footer from "./components/Footer";
@@ -20,6 +20,17 @@ function App() {
   ]);
 
   const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("tasks"));
+    if (saved) {
+      setTasks(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = (title) => {
     setTasks([
