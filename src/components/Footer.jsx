@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
   return (
     <footer className="footer">
@@ -38,5 +40,19 @@ function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
     </footer>
   );
 }
+
+Footer.propTypes = {
+  itemsLeft: PropTypes.number,
+  filter: PropTypes.string,
+  setFilter: PropTypes.func,
+  onClearCompleted: PropTypes.func,
+};
+
+Footer.defaultProps = {
+  itemsLeft: 0,
+  filter: "all",
+  setFilter: () => {},
+  onClearCompleted: () => {},
+};
 
 export default Footer;

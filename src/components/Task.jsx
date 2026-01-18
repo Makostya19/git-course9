@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
+import PropTypes from "prop-types";
 
 function Task({ task, onToggle, onDelete, onEdit }) {
   const [editing, setEditing] = useState(false);
@@ -23,6 +25,13 @@ function Task({ task, onToggle, onDelete, onEdit }) {
 
           <label onDoubleClick={() => setEditing(true)}>
             {task.title}
+            <span className="created">
+              {" "}
+              created{" "}
+              {formatDistanceToNow(new Date(task.createdAt), {
+                addSuffix: true,
+              })}
+            </span>
           </label>
 
           <button
@@ -51,5 +60,32 @@ function Task({ task, onToggle, onDelete, onEdit }) {
     </li>
   );
 }
+
+Task.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    completed: PropTypes.bool,
+    createdAt: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+  }),
+  onToggle: PropTypes.func,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
+};
+
+Task.defaultProps = {
+  task: {
+    id: 0,
+    title: "",
+    completed: false,
+    createdAt: new Date(),
+  },
+  onToggle: () => {},
+  onDelete: () => {},
+  onEdit: () => {},
+};
 
 export default Task;
