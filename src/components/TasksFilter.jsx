@@ -1,11 +1,39 @@
-function TasksFilter() {
+import PropTypes from "prop-types";
+
+function TasksFilter({ filter, setFilter }) {
   return (
     <ul className="filters">
-      <li><button className="selected">All</button></li>
-      <li><button>Active</button></li>
-      <li><button>Completed</button></li>
+      <li>
+        <button
+          className={filter === "all" ? "selected" : ""}
+          onClick={() => setFilter("all")}
+        >
+          All
+        </button>
+      </li>
+      <li>
+        <button
+          className={filter === "active" ? "selected" : ""}
+          onClick={() => setFilter("active")}
+        >
+          Active
+        </button>
+      </li>
+      <li>
+        <button
+          className={filter === "completed" ? "selected" : ""}
+          onClick={() => setFilter("completed")}
+        >
+          Completed
+        </button>
+      </li>
     </ul>
   );
 }
+
+TasksFilter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+};
 
 export default TasksFilter;

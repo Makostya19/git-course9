@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import TasksFilter from "./TasksFilter";
 
 function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
   return (
@@ -7,34 +8,12 @@ function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
         <strong>{itemsLeft}</strong> items left
       </span>
 
-      <ul className="filters">
-        <li>
-          <button
-            className={filter === "all" ? "selected" : ""}
-            onClick={() => setFilter("all")}
-          >
-            All
-          </button>
-        </li>
-        <li>
-          <button
-            className={filter === "active" ? "selected" : ""}
-            onClick={() => setFilter("active")}
-          >
-            Active
-          </button>
-        </li>
-        <li>
-          <button
-            className={filter === "completed" ? "selected" : ""}
-            onClick={() => setFilter("completed")}
-          >
-            Completed
-          </button>
-        </li>
-      </ul>
+      <TasksFilter filter={filter} setFilter={setFilter} />
 
-      <button className="clear-completed" onClick={onClearCompleted}>
+      <button
+        className="clear-completed"
+        onClick={onClearCompleted}
+      >
         Clear completed
       </button>
     </footer>
@@ -42,17 +21,10 @@ function Footer({ itemsLeft, filter, setFilter, onClearCompleted }) {
 }
 
 Footer.propTypes = {
-  itemsLeft: PropTypes.number,
-  filter: PropTypes.string,
-  setFilter: PropTypes.func,
-  onClearCompleted: PropTypes.func,
-};
-
-Footer.defaultProps = {
-  itemsLeft: 0,
-  filter: "all",
-  setFilter: () => {},
-  onClearCompleted: () => {},
+  itemsLeft: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  onClearCompleted: PropTypes.func.isRequired,
 };
 
 export default Footer;
